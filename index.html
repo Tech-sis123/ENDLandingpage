@@ -13,9 +13,12 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Deep navy base with subtle star-like grain and neon-blue undertones */
             background: radial-gradient(circle at 10% 10%, #07102a 0%, #00102b 20%, #000521 50%, #000216 100%);
             color: #e6f3ff;
+            overflow-x: hidden;
+        }
+
+        html {
             overflow-x: hidden;
         }
 
@@ -213,11 +216,13 @@
         /* About Section */
         .about-section {
             background: linear-gradient(rgba(255,255,255,0.97), rgba(255,255,255,0.97)), url('https://thumbs.dreamstime.com/z/confident-young-student-woman-28932988.jpg') top center/cover no-repeat;
-            padding: 60px 50px;
+            padding: 60px 5vw;
             border-radius: 20px;
+            box-sizing: border-box;
             box-shadow: 0 15px 50px rgba(0,0,0,0.2);
             margin: 40px 0;
             animation: fadeInUp 1s ease 0.3s backwards;
+            width: 100%;
         }
 
         .about-section h2 {
@@ -232,6 +237,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
             width: 100%;
         }
 
@@ -254,6 +261,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            width: 100%;
         }
 
         .stat-card {
@@ -263,6 +271,7 @@
             text-align: center;
             color: white;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-width: 100%;
         }
 
         .stat-number {
@@ -557,11 +566,11 @@
 
             .about-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 18px;
             }
 
             .about-stats {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
 
             .role-selection {
