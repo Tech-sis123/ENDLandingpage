@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Every Next Day Responses</title>
+    <style>
+        body {
+            background: radial-gradient(circle at 10% 10%, #07102a 0%, #00102b 20%, #000521 50%, #000216 100%);
+            color: #e6f3ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            background: rgba(255,255,255,0.98);
+            border-radius: 16px;
+            padding: 32px 20px 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            color: #222;
+        }
+        h2 {
+            color: #0047ab;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        th, td {
+            padding: 8px 6px;
+            border: 1px solid #cce;
+        }
+        th {
+            background: #e6f3ff;
+            color: #0047ab;
+        }
+        .admin-auth {
+            text-align: center;
+            margin: 60px 0 0;
+        }
+        .admin-auth input[type="password"] {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+            margin-right: 8px;
+        }
+        .admin-auth button {
+            padding: 8px 18px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            background: #0047ab;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .admin-auth button:hover {
+            background: #1e90ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container" id="adminPanel" style="display:none;">
+        <h2>Submitted Applications</h2>
+        <div id="responsesTableContent"></div>
+    </div>
+    <div class="admin-auth" id="adminAuth">
+        <form id="adminLoginForm" autocomplete="off">
+            <label for="adminPass">Admin Code:</label>
+            <input type="password" id="adminPass" required autofocus>
+            <button type="submit">View Responses</button>
+        </form>
+        <div id="adminAuthMsg" style="color:#c00;margin-top:10px;"></div>
+    </div>
+    <script>
+        const ADMIN_CODE = '0000'; // CHANGE THIS to your preferred code
+        function renderResponsesTable() {
+            let responses = [];
+            try {
+                responses = JSON.parse(localStorage.getItem('endCohort2Responses')) || [];
+            } catch (err) { responses = []; }
+            const tableContent = document.getElementById('responsesTableContent');
+            if (!responses.length) {
+                tableContent.innerHTML = '<p style="text-align:center;color:#888;">No responses yet.</p>';
+                return;
+            }
+            let html = '<div style="overflow-x:auto"><table>';
+            html += '<thead><tr>';
+            html += '<th>Name</th>';
+            html += '<th>WhatsApp</th>';
+            html += '<th>Email</th>';
+            html += '<th>Occupation</th>';
+            html += '<th>Skills</th>';
+            html += '<th>Why Join</th>';
+            html += '<th>Goals</th>';
+            html += '<th>Why Chosen</th>';
+            html += '<th>Fee Consent</th>';
+            html += '<th>Submitted</th>';
+            html += '</tr></thead><tbody>';
+            responses.slice().reverse().forEach(r => {
+                html += '<tr>';
+                html += `<td>${r.fullName||''}</td>`;
+                html += `<td>${r.whatsapp||''}</td>`;
+                html += `<td>${r.email||''}</td>`;
+                html += `<td>${r.occupation||''}</td>`;
+                html += `<td style="white-space:pre-line;">${r.skills||''}</td>`;
+                html += `<td style="white-space:pre-line;">${r.whyJoin||''}</td>`;
+                html += `<td style="white-space:pre-line;">${r.goals||''}</td>`;
+                html += `<td style="white-space:pre-line;">${r.whyChosen||''}</td>`;
+                html += `<td>${r.feeConsent||''}</td>`;
+                html += `<td>${r.submittedAt?new Date(r.submittedAt).toLocaleString():''}</td>`;
+                html += '</tr>';
+            });
+            html += '</tbody></table></div>';
+            tableContent.innerHTML = html;
+        }
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPass').value;
+            if (pass === ADMIN_CODE) {
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminAuth').style.display = 'none';
+                renderResponsesTable();
+            } else {
+                document.getElementById('adminAuthMsg').textContent = 'Incorrect code.';
+            }
+        });
+    </script>
+</body>
+</html>
