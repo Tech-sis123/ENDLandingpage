@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,7 @@
             z-index: 0;
             overflow: hidden;
             /* a subtle gradient base that will be enhanced by the overlay layers */
-            background: linear-gradient(130deg, rgba(6,20,60,0.6) 0%, rgba(0,18,45,0.9) 60%);
+            background: linear-gradient(130deg, rgba(6, 20, 60, 0.6) 0%, rgba(0, 18, 45, 0.9) 60%);
         }
 
         .bg-overlay {
@@ -44,10 +45,10 @@
             left: 0;
             /* layered neon radial glows + subtle linear wash */
             background-image:
-                radial-gradient(600px 300px at 10% 20%, rgba(120,86,255,0.13), transparent 18%),
-                radial-gradient(560px 360px at 85% 75%, rgba(0,210,255,0.10), transparent 18%),
-                radial-gradient(300px 200px at 50% 50%, rgba(120,180,255,0.06), transparent 20%),
-                linear-gradient(180deg, rgba(10,30,80,0.35), rgba(2,6,30,0.6));
+                radial-gradient(600px 300px at 10% 20%, rgba(120, 86, 255, 0.13), transparent 18%),
+                radial-gradient(560px 360px at 85% 75%, rgba(0, 210, 255, 0.10), transparent 18%),
+                radial-gradient(300px 200px at 50% 50%, rgba(120, 180, 255, 0.06), transparent 20%),
+                linear-gradient(180deg, rgba(10, 30, 80, 0.35), rgba(2, 6, 30, 0.6));
             mix-blend-mode: screen;
             filter: blur(16px);
             opacity: 0.85;
@@ -62,8 +63,10 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0; /* behind the foreground container which is z-index:1 */
-            opacity: 0.13; /* subtle */
+            z-index: 0;
+            /* behind the foreground container which is z-index:1 */
+            opacity: 0.13;
+            /* subtle */
             mix-blend-mode: screen;
             transform-origin: center;
         }
@@ -76,7 +79,7 @@
 
         .bg-letters .big-outline {
             fill: none;
-            stroke: rgba(150,160,255,0.9);
+            stroke: rgba(150, 160, 255, 0.9);
             stroke-width: 2;
             stroke-linejoin: round;
             vector-effect: non-scaling-stroke;
@@ -102,16 +105,19 @@
 
         @keyframes bgZoomPan {
             0% {
-                transform: scale(1.01) translate(0,0);
+                transform: scale(1.01) translate(0, 0);
             }
+
             40% {
                 transform: scale(1.035) translate(-1vw, 0.5vh);
             }
+
             60% {
                 transform: scale(1.05) translate(1vw, -0.5vh);
             }
+
             100% {
-                transform: scale(1.035) translate(0,0);
+                transform: scale(1.035) translate(0, 0);
             }
         }
 
@@ -122,20 +128,42 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-20px);
             }
         }
 
         @keyframes neonShift {
-            0% { transform: translate3d(0,0,0) scale(1); opacity: 0.88; }
-            25% { transform: translate3d(-30px,8px,0) scale(1.01); opacity: 0.9; }
-            50% { transform: translate3d(0,20px,0) scale(1.02); opacity: 0.92; }
-            75% { transform: translate3d(30px,6px,0) scale(1.01); opacity: 0.9; }
-            100% { transform: translate3d(0,0,0) scale(1); opacity: 0.88; }
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0.88;
+            }
+
+            25% {
+                transform: translate3d(-30px, 8px, 0) scale(1.01);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate3d(0, 20px, 0) scale(1.02);
+                opacity: 0.92;
+            }
+
+            75% {
+                transform: translate3d(30px, 6px, 0) scale(1.01);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0.88;
+            }
         }
 
         .container {
@@ -155,25 +183,28 @@
         }
 
         .logo {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    animation: pulse 2s infinite;
-    overflow: hidden;
-}
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            overflow: hidden;
+        }
 
-.logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
@@ -183,7 +214,7 @@
             color: white;
             font-size: 48px;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .tagline {
@@ -191,7 +222,7 @@
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .header p {
@@ -207,6 +238,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -215,11 +247,11 @@
 
         /* About Section */
         .about-section {
-            background: linear-gradient(rgba(255,255,255,0.97), rgba(255,255,255,0.97)), url('https://thumbs.dreamstime.com/z/confident-young-student-woman-28932988.jpg') top center/cover no-repeat;
+            background: linear-gradient(rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.97)), url('https://thumbs.dreamstime.com/z/confident-young-student-woman-28932988.jpg') top center/cover no-repeat;
             padding: 60px 5vw;
             border-radius: 20px;
             box-sizing: border-box;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
             margin: 40px 0;
             animation: fadeInUp 1s ease 0.3s backwards;
             width: 100%;
@@ -270,7 +302,7 @@
             border-radius: 15px;
             text-align: center;
             color: white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             max-width: 100%;
         }
 
@@ -299,13 +331,13 @@
             padding: 30px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .highlight-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .highlight-card h3 {
@@ -325,7 +357,7 @@
             color: white;
             font-size: 28px;
             margin: 30px 0 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .features-subtitle {
@@ -342,6 +374,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -371,7 +404,7 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -414,6 +447,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -424,7 +458,7 @@
             background: rgba(255, 255, 255, 0.98);
             padding: 40px 24px;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
             margin: 60px 0;
             animation: fadeInUp 1s ease 1.2s backwards;
             width: 100%;
@@ -564,13 +598,22 @@
                 font-size: 20px;
             }
 
+            .about-section {
+                padding: 40px 5vw 20px;
+            }
+
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 18px;
             }
 
             .about-stats {
-                grid-template-columns: 1fr;
+                grid-template-columns: auto auto;
+                gap: 10px;
+            }
+
+            .stat-card{
+                padding: 20px;
             }
 
             .role-selection {
@@ -583,15 +626,20 @@
         }
     </style>
 </head>
+
 <body>
     <div class="bg-animation">
         <div class="bg-overlay"></div>
         <div class="bg-letters" aria-hidden="true">
-            <svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img">
+            <svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"
+                role="img">
                 <defs>
                     <style>
                         /* use a heavy sans so the outline reads similarly across platforms */
-                        .big { font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 900; }
+                        .big {
+                            font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+                            font-weight: 900;
+                        }
                     </style>
                 </defs>
                 <!-- Top large outlined END -->
@@ -600,32 +648,41 @@
                 <text x="50%" y="92%" text-anchor="middle" class="big big-outline" font-size="260">END</text>
             </svg>
         </div>
-    <div class="bg-image"></div>
+        <div class="bg-image"></div>
     </div>
 
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <img src="logo2.png" alt="Every Next Day Logo" style="display:block;margin: -40px auto 18px;max-width:220px;width:100%;height:auto;image-rendering:crisp-edges;">
+            <img src="logo2.png" alt="Every Next Day Logo"
+                style="display:block;margin: -40px auto 18px;max-width:220px;width:100%;height:auto;image-rendering:crisp-edges;">
             <h1>Every Next Day</h1>
             <div class="tagline">30 Days. 4 Themes. One Unstoppable You.</div>
-            <p>Join Cohort 2 of the ultimate 30-day growth accelerator. Build consistency, achieve your goals, and transform your potential into results.</p>
+            <p>Join Cohort 2 of the ultimate 30-day growth accelerator. Build consistency, achieve your goals, and
+                transform your potential into results.</p>
         </div>
 
         <!-- About Section -->
         <div class="about-section">
             <h2>What is Every Next Day?</h2>
             <div class="about-content">
-                    <div class="about-text">
-                        <p>Every Next Day is a powerful program designed to take consistency and discipline to the next level. It exists for one purpose: to produce high-achievers who no longer just dream about success — they live it, day after day. </p>
+                <div class="about-text">
+                    <p>Every Next Day is a powerful program designed to take consistency and discipline to the next
+                        level. It exists for one purpose: to produce high-achievers who no longer just dream about
+                        success — they live it, day after day. </p>
 
-                        <p>We are presenting something bigger and better for Cohort 2 - a transformative 30-day intensive that turns your days into the most productive, life-changing month.</p>
+                    <p>We are presenting something bigger and better for Cohort 2 - a transformative 30-day intensive
+                        that turns your days into the most productive, life-changing month.</p>
 
-                       
-                        <p>With our AI-powered Consistency30 app, 4 powerful weekly sprints (Career • Finance • Business • Leadership), personal accountability partners, dedicated admins, and a zero-excuses community, you’ll build unbreakable consistency, discipline, and momentum.</p>
 
-                        <p>Whether you’re mastering a new skill, scaling your business, getting in peak shape, or accelerating your career — Cohort 2 gives you the exact structure, tools, and fire you need to make it happen.</p>
-                    </div>
+                    <p>With our AI-powered Consistency30 app, 4 powerful weekly sprints (Career • Finance • Business •
+                        Leadership), personal accountability partners, dedicated admins, and a zero-excuses community,
+                        you’ll build unbreakable consistency, discipline, and momentum.</p>
+
+                    <p>Whether you’re mastering a new skill, scaling your business, getting in peak shape, or
+                        accelerating your career — Cohort 2 gives you the exact structure, tools, and fire you need to
+                        make it happen.</p>
+                </div>
                 <div class="about-stats">
                     <div class="stat-card">
                         <div class="stat-number">30</div>
@@ -650,13 +707,15 @@
         <!-- Program Highlights -->
         <div class="cohort-features">
             <h2 class="features-title">This Cohort Features</h2>
-            <p class="features-subtitle">Highlights included in Cohort 2 — designed to accelerate your growth over 30 days.</p>
+            <p class="features-subtitle">Highlights included in Cohort 2 — designed to accelerate your growth over 30
+                days.</p>
         </div>
 
         <div class="highlights">
             <div class="highlight-card">
                 <h3>AI-Powered Tracking</h3>
-                <p>Track your progress with our Consistency30 app featuring smart AI validation and visual progress tracking</p>
+                <p>Track your progress with our Consistency30 app featuring smart AI validation and visual progress
+                    tracking</p>
             </div>
             <div class="highlight-card">
                 <h3>Accountability Trios</h3>
@@ -678,7 +737,8 @@
             <div class="testimonial-grid">
                 <div class="testimonial">
                     <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Sharing my schedule made me more disciplined and consistent. I learned to plan better and keep commitments.</p>
+                    <p class="testimonial-text">Sharing my schedule made me more disciplined and consistent. I learned
+                        to plan better and keep commitments.</p>
                     <div class="testimonial-footer">
                         <div class="testimonial-name">Ahmed Aisha</div>
                         <div class="stars">★★★★★</div>
@@ -686,7 +746,8 @@
                 </div>
                 <div class="testimonial">
                     <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Sharing my schedule built my discipline and consistency. Being an admin also taught me leadership while achieving my personal goals.</p>
+                    <p class="testimonial-text">Sharing my schedule built my discipline and consistency. Being an admin
+                        also taught me leadership while achieving my personal goals.</p>
                     <div class="testimonial-footer">
                         <div class="testimonial-name">Robinson Goodness</div>
                         <div class="stars">★★★★★</div>
@@ -694,7 +755,8 @@
                 </div>
                 <div class="testimonial">
                     <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">   The webinars every week were life-transforming. I learnt time management and career development skills that have stuck with me.</p>
+                    <p class="testimonial-text"> The webinars every week were life-transforming. I learnt time
+                        management and career development skills that have stuck with me.</p>
                     <div class="testimonial-footer">
                         <div class="testimonial-name">Anuoluwapo Doreen</div>
                         <div class="stars">★★★★★</div>
@@ -707,8 +769,8 @@
         <div class="registration-section">
             <h2>Apply for Cohort 2</h2>
             <p class="registration-subtitle">Join the next generation of high-achievers!</p>
-        
-            
+
+
             <form id="registrationForm" autocomplete="off">
                 <div class="form-group">
                     <label for="fullName">Full Name </label>
@@ -739,46 +801,58 @@
 
                 <div class="form-group">
                     <label for="skills">What skill(s) are you currently learning? </label>
-                    <textarea id="skills" name="skills" required placeholder="E.g., Python programming, Digital marketing, Graphic design..."></textarea>
+                    <textarea id="skills" name="skills" required
+                        placeholder="E.g., Python programming, Digital marketing, Graphic design..."></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="whyJoin">Why do you want to join Every Next Day Cohort 2? </label>
-                    <textarea id="whyJoin" name="whyJoin" required placeholder="Tell us what motivated you to join this program..."></textarea>
+                    <textarea id="whyJoin" name="whyJoin" required
+                        placeholder="Tell us what motivated you to join this program..."></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="goals">What goals do you have? </label>
-                    <textarea id="goals" name="goals" required placeholder="Share your personal and professional goals for the next 30 days..."></textarea>
+                    <textarea id="goals" name="goals" required
+                        placeholder="Share your personal and professional goals for the next 30 days..."></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="whyChosen">There are limited slots. Why should you be chosen as a participant for this cohort? </label>
-                    <textarea id="whyChosen" name="whyChosen" required placeholder="Convince us why you deserve a spot in Cohort 2..."></textarea>
+                    <label for="whyChosen">There are limited slots. Why should you be chosen as a participant for this
+                        cohort? </label>
+                    <textarea id="whyChosen" name="whyChosen" required
+                        placeholder="Convince us why you deserve a spot in Cohort 2..."></textarea>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="feeConsent">Do you consent to the fee of ₦3,000 (Three Thousand Naira) if chosen? </label>
+                    <label for="feeConsent">Do you consent to the fee of ₦3,000 (Three Thousand Naira) if chosen?
+                    </label>
                     <select id="feeConsent" name="feeConsent" required>
                         <option value="">Select an option</option>
                         <option value="yes">Yes, I consent</option>
                         <option value="no">No, I do not consent</option>
                     </select>
-                    <div style="color:#0047ab; font-size:15px; margin-top:7px;">This fee gives you access to the AI-powered notification and validation system.</div>
+                    <div style="color:#0047ab; font-size:15px; margin-top:7px;">This fee gives you access to the
+                        AI-powered notification and validation system.</div>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Application →</button>
             </form>
 
             <!-- Review Modal -->
-            <div id="reviewModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,32,0.65);align-items:center;justify-content:center;">
-                <div style="background:#fff;color:#222;max-width:480px;width:95vw;padding:32px 18px 24px;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.18);margin:auto;">
+            <div id="reviewModal"
+                style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,32,0.65);align-items:center;justify-content:center;">
+                <div
+                    style="background:#fff;color:#222;max-width:480px;width:95vw;padding:32px 18px 24px;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.18);margin:auto;">
                     <h2 style="color:#0047ab;text-align:center;margin-bottom:18px;">Review Your Application</h2>
                     <div id="reviewContent" style="font-size:1rem;margin-bottom:18px;"></div>
                     <div style="text-align:center;">
-                        <button id="editBtn" style="margin-right:18px;padding:8px 18px;border-radius:8px;border:none;background:#eee;color:#0047ab;font-weight:600;cursor:pointer;">Edit</button>
-                        <button id="confirmBtn" style="padding:8px 18px;border-radius:8px;border:none;background:#0047ab;color:#fff;font-weight:600;cursor:pointer;">Confirm & Submit</button>
+                        <button id="editBtn"
+                            style="margin-right:18px;padding:8px 18px;border-radius:8px;border:none;background:#eee;color:#0047ab;font-weight:600;cursor:pointer;">Edit</button>
+                        <button id="confirmBtn"
+                            style="padding:8px 18px;border-radius:8px;border:none;background:#0047ab;color:#fff;font-weight:600;cursor:pointer;">Confirm
+                            & Submit</button>
                     </div>
                 </div>
             </div>
@@ -792,85 +866,86 @@
             <p>Questions? Contact us at info@everynextday.com</p>
         </div>
 
-    <!-- Admin Responses Table (visible if responses exist) -->
+        <!-- Admin Responses Table (visible if responses exist) -->
 
-    <script>
-        // --- Review Step Logic ---
-        let reviewData = null;
-        const reviewModal = document.getElementById('reviewModal');
-        const reviewContent = document.getElementById('reviewContent');
-        const editBtn = document.getElementById('editBtn');
-        const confirmBtn = document.getElementById('confirmBtn');
+        <script>
+            // --- Review Step Logic ---
+            let reviewData = null;
+            const reviewModal = document.getElementById('reviewModal');
+            const reviewContent = document.getElementById('reviewContent');
+            const editBtn = document.getElementById('editBtn');
+            const confirmBtn = document.getElementById('confirmBtn');
 
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = e.target;
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            reviewData = data;
-            // Show review modal
-            let html = '';
-            html += `<b>Full Name:</b> ${data.fullName || ''}<br>`;
-            html += `<b>WhatsApp Number:</b> ${data.whatsapp || ''}<br>`;
-            html += `<b>Email Address:</b> ${data.email || ''}<br>`;
-            html += `<b>Occupation:</b> ${data.occupation || ''}<br>`;
-            html += `<b>Skills:</b> ${data.skills || ''}<br>`;
-            html += `<b>Why Join:</b> ${data.whyJoin || ''}<br>`;
-            html += `<b>Goals:</b> ${data.goals || ''}<br>`;
-            html += `<b>Why Chosen:</b> ${data.whyChosen || ''}<br>`;
-            html += `<b>Fee Consent:</b> ${data.feeConsent === 'yes' ? 'Yes, I consent' : 'No, I do not consent'}<br>`;
-            if (data.feeConsent !== 'yes') {
-                html += `<div style='color:#c00;margin-top:8px;'><b>Note:</b> To participate, you must consent to the fee. If you do not, you may not be eligible for full access to the program features. You can go back and edit your response.</div>`;
-            }
-            reviewContent.innerHTML = html;
-            reviewModal.style.display = 'flex';
-        });
-
-        editBtn.onclick = function() {
-            reviewModal.style.display = 'none';
-        };
-
-        confirmBtn.onclick = function() {
-            if (!reviewData) return;
-            // Store response in localStorage
-            let responses = [];
-    /* Remove .logo styles, use direct img for sharpness */
-            // Hide modal
-            reviewModal.style.display = 'none';
-            // Redirect
-            window.location.href = 'confirmation.html';
-        };
-
-        // Clear temp data on load (so form is always blank)
-        window.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('registrationForm').reset();
-            sessionStorage.removeItem('endCohort2Temp');
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            document.getElementById('registrationForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const form = e.target;
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
                 }
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                reviewData = data;
+                // Show review modal
+                let html = '';
+                html += `<b>Full Name:</b> ${data.fullName || ''}<br>`;
+                html += `<b>WhatsApp Number:</b> ${data.whatsapp || ''}<br>`;
+                html += `<b>Email Address:</b> ${data.email || ''}<br>`;
+                html += `<b>Occupation:</b> ${data.occupation || ''}<br>`;
+                html += `<b>Skills:</b> ${data.skills || ''}<br>`;
+                html += `<b>Why Join:</b> ${data.whyJoin || ''}<br>`;
+                html += `<b>Goals:</b> ${data.goals || ''}<br>`;
+                html += `<b>Why Chosen:</b> ${data.whyChosen || ''}<br>`;
+                html += `<b>Fee Consent:</b> ${data.feeConsent === 'yes' ? 'Yes, I consent' : 'No, I do not consent'}<br>`;
+                if (data.feeConsent !== 'yes') {
+                    html += `<div style='color:#c00;margin-top:8px;'><b>Note:</b> To participate, you must consent to the fee. If you do not, you may not be eligible for full access to the program features. You can go back and edit your response.</div>`;
+                }
+                reviewContent.innerHTML = html;
+                reviewModal.style.display = 'flex';
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.testimonial, .highlight-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+            editBtn.onclick = function () {
+                reviewModal.style.display = 'none';
+            };
+
+            confirmBtn.onclick = function () {
+                if (!reviewData) return;
+                // Store response in localStorage
+                let responses = [];
+                /* Remove .logo styles, use direct img for sharpness */
+                // Hide modal
+                reviewModal.style.display = 'none';
+                // Redirect
+                window.location.href = 'confirmation.html';
+            };
+
+            // Clear temp data on load (so form is always blank)
+            window.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('registrationForm').reset();
+                sessionStorage.removeItem('endCohort2Temp');
+            });
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.testimonial, .highlight-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        </script>
 </body>
+
 </html>
