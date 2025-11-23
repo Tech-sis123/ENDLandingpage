@@ -946,6 +946,31 @@
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
             });
+
+            function finalizeAndSend(finalResponse) {
+    // finalResponse is an object with all form fields + submittedAt is optional
+    fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(finalResponse)
+    })
+    .then(r => r.json())
+    .then(j => {
+        if (j && j.ok) {
+            // clear any temporary state, then redirect to confirmation page
+            // remove any local temp keys you used:
+            try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+            window.location.href = 'confirmation.html';
+        } else {
+            alert('Submission failed, please try again.');
+            console.error('submit error', j);
+        }
+    })
+    .catch(err => {
+        alert('Submission failed, please try again.');
+        console.error(err);
+    });
+}
         </script>
 </body>
 
