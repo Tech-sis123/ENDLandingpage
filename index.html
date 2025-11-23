@@ -841,7 +841,7 @@
                 <button type="submit" class="submit-btn">Submit Application →</button>
             </form>
 
-            <!-- Review Modal -->
+            <!-- Review Modal (moved outside form to avoid nesting issues) -->
             <div id="reviewModal"
                 style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,32,0.65);align-items:center;justify-content:center;">
                 <div
@@ -857,7 +857,6 @@
                     </div>
                 </div>
             </div>
-            </form>
         </div>
 
         <!-- Footer -->
@@ -911,13 +910,10 @@
 
             confirmBtn.onclick = function () {
                 if (!reviewData) return;
-                // Store response in localStorage
-                let responses = [];
-                /* Remove .logo styles, use direct img for sharpness */
-                // Hide modal
+                // FIXED: Call the submission function (was missing before)
+                // Hide modal first for better UX
                 reviewModal.style.display = 'none';
-                // Redirect
-                window.location.href = 'confirmation.html';
+                finalizeAndSend(reviewData);
             };
 
             // Clear temp data on load (so form is always blank)
@@ -948,54 +944,54 @@
             });
 
             function finalizeAndSend(finalResponse) {
-    // finalResponse is an object with all form fields + submittedAt is optional
-    finalResponse.submittedAt = new Date().toISOString();  // Ensure timestamp if missing
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtkZ9qwlF44Ji8Qn4C3osztkJTpC1UlAND-UrAR_iy8WtPhnp1rK0Q3c9BH_qkbxK9g/exec';  // Your deployed Apps Script web app URL
-    
-    console.log('Data to send:', finalResponse);
-    
-    // Convert to URLSearchParams for Apps Script e.parameter compatibility
-    const formData = new URLSearchParams();
-    formData.append('fullName', finalResponse.fullName || '');
-    formData.append('whatsapp', finalResponse.whatsapp || '');
-    formData.append('email', finalResponse.email || '');
-    formData.append('occupation', finalResponse.occupation || '');
-    formData.append('skills', finalResponse.skills || '');
-    formData.append('whyJoin', finalResponse.whyJoin || '');
-    formData.append('goals', finalResponse.goals || '');
-    formData.append('whyChosen', finalResponse.whyChosen || '');
-    formData.append('feeConsent', finalResponse.feeConsent || '');
-    formData.append('submittedAt', finalResponse.submittedAt || '');
+                // finalResponse is an object with all form fields + submittedAt is optional
+                finalResponse.submittedAt = new Date().toISOString();  // Ensure timestamp if missing
+                const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtkZ9qwlF44Ji8Qn4C3osztkJTpC1UlAND-UrAR_iy8WtPhnp1rK0Q3c9BH_qkbxK9g/exec';  // Your deployed Apps Script web app URL
+                
+                console.log('Data to send:', finalResponse);
+                
+                // Convert to URLSearchParams for Apps Script e.parameter compatibility
+                const formData = new URLSearchParams();
+                formData.append('fullName', finalResponse.fullName || '');
+                formData.append('whatsapp', finalResponse.whatsapp || '');
+                formData.append('email', finalResponse.email || '');
+                formData.append('occupation', finalResponse.occupation || '');
+                formData.append('skills', finalResponse.skills || '');
+                formData.append('whyJoin', finalResponse.whyJoin || '');
+                formData.append('goals', finalResponse.goals || '');
+                formData.append('whyChosen', finalResponse.whyChosen || '');
+                formData.append('feeConsent', finalResponse.feeConsent || '');
+                formData.append('submittedAt', finalResponse.submittedAt || '');
 
-    console.log('Sending to:', SCRIPT_URL);
-    console.log('FormData:', formData.toString());
+                console.log('Sending to:', SCRIPT_URL);
+                console.log('FormData:', formData.toString());
 
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: formData  // No Content-Type header needed for form data
-    })
-    .then(response => {
-        console.log('Response status:', response.status);
-        return response.text();  // Apps Script returns text; parse as JSON
-    })
-    .then(text => {
-        console.log('Response text:', text);
-        const j = JSON.parse(text);
-        if (j && j.ok) {
-            // clear any temporary state, then redirect to confirmation page
-            try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
-            alert('Application submitted successfully!');  // Optional: Show success alert
-            window.location.href = 'confirmation.html';
-        } else {
-            alert('Submission failed: ' + (j.error || 'Unknown error'));
-            console.error('submit error', j);
-        }
-    })
-    .catch(err => {
-        alert('Submission failed, please try again.');
-        console.error(err);
-    });
-}
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData  // No Content-Type header needed for form data
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.text();  // Apps Script returns text; parse as JSON
+                })
+                .then(text => {
+                    console.log('Response text:', text);
+                    const j = JSON.parse(text);
+                    if (j && j.ok) {
+                        // clear any temporary state, then redirect to confirmation page
+                        try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+                        alert('Application submitted successfully!');  // Optional: Show success alert
+                        window.location.href = 'confirmation.html';
+                    } else {
+                        alert('Submission failed: ' + (j.error || 'Unknown error'));
+                        console.error('submit error', j);
+                    }
+                })
+                .catch(err => {
+                    alert('Submission failed, please try again.');
+                    console.error(err);
+                });
+            }
         </script>
 </body>
 
