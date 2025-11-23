@@ -33,48 +33,48 @@
   </div>
 
   <script>
-    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    document.getElementById('adminLoginForm').addEventListener('submit', async function(e){
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const code = document.getElementById('adminPass').value.trim();
-      if (!code) { document.getElementById('adminAuthMsg').textContent='Enter admin code.'; return; }
-      try {
-        const resp = await fetch('/responses?admin=' + encodeURIComponent(code));
-        if (resp.status === 401) { document.getElementById('adminAuthMsg').textContent='Incorrect code.'; return; }
-        if (!resp.ok) { document.getElementById('adminAuthMsg').textContent='Server error.'; console.error(await resp.text()); return; }
-        const j = await resp.json();
-        const list = j.responses || [];
-        document.getElementById('adminPanel').style.display = 'block';
-        document.getElementById('adminAuth').style.display = 'none';
-        renderResponses(list);
-      } catch (err) {
-        document.getElementById('adminAuthMsg').textContent='Unable to reach server.';
-        console.error(err);
+      const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // Replace with your Apps Script URL
+
+      const resp = await fetch(SCRIPT_URL + '?admin=' + encodeURIComponent(code));
+      const j = await resp.json();
+      if (!j.ok) {
+        document.getElementById('adminAuthMsg').textContent = j.error || 'Unauthorized';
+        return;
       }
+      renderResponses(j.responses || []);
     });
 
-    function renderResponses(list){
+    function renderResponses(list) {
       const container = document.getElementById('responsesTableContent');
-      if (!list.length) { container.innerHTML = '<p style="color:#666">No responses yet.</p>'; return; }
+      if (!list.length) {
+        container.innerHTML = '<p style="color:#666">No responses yet.</p>';
+        return;
+      }
       let html = '<div style="overflow:auto"><table><thead><tr>';
       html += '<th>Name</th><th>WhatsApp</th><th>Email</th><th>Occupation</th><th>Skills</th><th>Why Join</th><th>Goals</th><th>Fee Consent</th><th>Submitted</th>';
       html += '</tr></thead><tbody>';
-      list.slice().reverse().forEach(r => {
+      list.forEach(r => {
         html += '<tr>';
         html += `<td>${escapeHtml(r.fullName)}</td>`;
         html += `<td>${escapeHtml(r.whatsapp)}</td>`;
         html += `<td>${escapeHtml(r.email)}</td>`;
         html += `<td>${escapeHtml(r.occupation)}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.skills)}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.whyJoin)}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.goals)}</td>`;
+        html += `<td>${escapeHtml(r.skills)}</td>`;
+        html += `<td>${escapeHtml(r.whyJoin)}</td>`;
+        html += `<td>${escapeHtml(r.goals)}</td>`;
         html += `<td>${escapeHtml(r.feeConsent)}</td>`;
-        html += `<td>${r.submittedAt? new Date(r.submittedAt).toLocaleString(): ''}</td>`;
+        html += `<td>${new Date(r.submittedAt).toLocaleString()}</td>`;
         html += '</tr>';
       });
       html += '</tbody></table></div>';
       container.innerHTML = html;
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
   </script>
 </body>
