@@ -636,16 +636,13 @@
                 role="img">
                 <defs>
                     <style>
-                        /* use a heavy sans so the outline reads similarly across platforms */
                         .big {
                             font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
                             font-weight: 900;
                         }
                     </style>
                 </defs>
-                <!-- Top large outlined END -->
                 <text x="50%" y="18%" text-anchor="middle" class="big big-outline" font-size="260">END</text>
-                <!-- Bottom large outlined END -->
                 <text x="50%" y="92%" text-anchor="middle" class="big big-outline" font-size="260">END</text>
             </svg>
         </div>
@@ -663,114 +660,10 @@
                 transform your potential into results.</p>
         </div>
 
-        <!-- About Section -->
-        <div class="about-section">
-            <h2>What is Every Next Day?</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Every Next Day is a powerful program designed to take consistency and discipline to the next
-                        level. It exists for one purpose: to produce high-achievers who no longer just dream about
-                        success — they live it, day after day. </p>
-
-                    <p>We are presenting something bigger and better for Cohort 2 - a transformative 30-day intensive
-                        that turns your days into the most productive, life-changing month.</p>
-
-
-                    <p>With our AI-powered Consistency30 app, 4 powerful weekly sprints (Career • Finance • Business •
-                        Leadership), personal accountability partners, dedicated admins, and a zero-excuses community,
-                        you’ll build unbreakable consistency, discipline, and momentum.</p>
-
-                    <p>Whether you’re mastering a new skill, scaling your business, getting in peak shape, or
-                        accelerating your career — Cohort 2 gives you the exact structure, tools, and fire you need to
-                        make it happen.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">30</div>
-                        <div class="stat-label">Days of Growth</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Themed Weeks</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">100+</div>
-                        <div class="stat-label">High-Achievers</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">90%</div>
-                        <div class="stat-label">Goal Success Rate</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Program Highlights -->
-        <div class="cohort-features">
-            <h2 class="features-title">This Cohort Features</h2>
-            <p class="features-subtitle">Highlights included in Cohort 2 — designed to accelerate your growth over 30
-                days.</p>
-        </div>
-
-        <div class="highlights">
-            <div class="highlight-card">
-                <h3>AI-Powered Tracking</h3>
-                <p>Track your progress with our Consistency30 app featuring smart AI validation and visual progress
-                    tracking</p>
-            </div>
-            <div class="highlight-card">
-                <h3>Accountability Trios</h3>
-                <p>Connect with like-minded achievers in small support groups for maximum accountability</p>
-            </div>
-            <div class="highlight-card">
-                <h3>4 Themed Weeks</h3>
-                <p>Career, Finance, Business & Leadership - master practical skills across all domains</p>
-            </div>
-            <div class="highlight-card">
-                <h3>Certificate & Community</h3>
-                <p>Earn recognition and join a network of high-achievers committed to growth</p>
-            </div>
-        </div>
-
-        <!-- Testimonials -->
-        <div class="testimonials">
-            <h2>Success Stories from Cohort 1</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Sharing my schedule made me more disciplined and consistent. I learned
-                        to plan better and keep commitments.</p>
-                    <div class="testimonial-footer">
-                        <div class="testimonial-name">Ahmed Aisha</div>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Sharing my schedule built my discipline and consistency. Being an admin
-                        also taught me leadership while achieving my personal goals.</p>
-                    <div class="testimonial-footer">
-                        <div class="testimonial-name">Robinson Goodness</div>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text"> The webinars every week were life-transforming. I learnt time
-                        management and career development skills that have stuck with me.</p>
-                    <div class="testimonial-footer">
-                        <div class="testimonial-name">Anuoluwapo Doreen</div>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Registration Form -->
         <div class="registration-section">
             <h2>Apply for Cohort 2</h2>
             <p class="registration-subtitle">Join the next generation of high-achievers!</p>
-
 
             <form id="registrationForm" autocomplete="off">
                 <div class="form-group">
@@ -857,7 +750,6 @@
                     </div>
                 </div>
             </div>
-            </form>
         </div>
 
         <!-- Footer -->
@@ -866,115 +758,86 @@
             <p>#everynextday | Cohort 2: The 30-Day Accelerator</p>
             <p>Questions? Contact us at info@everynextday.com</p>
         </div>
+    </div>
 
-        <!-- Admin Responses Table (visible if responses exist) -->
+    <script>
+        // --- Review Step Logic ---
+        let reviewData = null;
+        const reviewModal = document.getElementById('reviewModal');
+        const reviewContent = document.getElementById('reviewContent');
+        const editBtn = document.getElementById('editBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
 
-        <script>
-            // --- Review Step Logic ---
-            let reviewData = null;
-            const reviewModal = document.getElementById('reviewModal');
-            const reviewContent = document.getElementById('reviewContent');
-            const editBtn = document.getElementById('editBtn');
-            const confirmBtn = document.getElementById('confirmBtn');
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = e.target;
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            reviewData = data;
+            // Show review modal
+            let html = '';
+            html += `<b>Full Name:</b> ${data.fullName || ''}<br>`;
+            html += `<b>WhatsApp Number:</b> ${data.whatsapp || ''}<br>`;
+            html += `<b>Email Address:</b> ${data.email || ''}<br>`;
+            html += `<b>Occupation:</b> ${data.occupation || ''}<br>`;
+            html += `<b>Skills:</b> ${data.skills || ''}<br>`;
+            html += `<b>Why Join:</b> ${data.whyJoin || ''}<br>`;
+            html += `<b>Goals:</b> ${data.goals || ''}<br>`;
+            html += `<b>Fee Consent:</b> ${data.feeConsent === 'yes' ? 'Yes, I consent' : 'No, I do not consent'}<br>`;
+            reviewContent.innerHTML = html;
+            reviewModal.style.display = 'flex';
+        });
 
-            document.getElementById('registrationForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-                const form = e.target;
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
+        editBtn.onclick = function () {
+            reviewModal.style.display = 'none';
+        };
+
+        confirmBtn.onclick = function () {
+            if (!reviewData) return;
+            finalizeAndSend(reviewData);
+        };
+
+        // Clear temp data on load
+        window.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('registrationForm').reset();
+            sessionStorage.removeItem('endCohort2Temp');
+        });
+
+        // Finalize and send data to Google Apps Script
+        function finalizeAndSend(finalResponse) {
+            finalResponse.submittedAt = new Date().toISOString();
+            const SCRIPT_URL = 'https://script.google.com/macros/s/1SmWDxaie_ukvNsEq1zTtqpa1yg9MswdKbExOEap23as/exec'; // Replace with your Apps Script URL
+            const SECRET = '0000'; // Your secret code
+
+            finalResponse._token = SECRET; // Include the token in the payload
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(finalResponse)
+            })
+            .then(r => r.json())
+            .then(j => {
+                if (j && j.ok) {
+                    // Clear any temporary data used during review
+                    try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+                    // Redirect to confirmation page
+                    window.location.href = 'confirmation.html';
+                } else {
+                    alert('Submission failed, please try again.');
+                    console.error('submit error', j);
                 }
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData);
-                reviewData = data;
-                // Show review modal
-                let html = '';
-                html += `<b>Full Name:</b> ${data.fullName || ''}<br>`;
-                html += `<b>WhatsApp Number:</b> ${data.whatsapp || ''}<br>`;
-                html += `<b>Email Address:</b> ${data.email || ''}<br>`;
-                html += `<b>Occupation:</b> ${data.occupation || ''}<br>`;
-                html += `<b>Skills:</b> ${data.skills || ''}<br>`;
-                html += `<b>Why Join:</b> ${data.whyJoin || ''}<br>`;
-                html += `<b>Goals:</b> ${data.goals || ''}<br>`;
-                html += `<b>Why Chosen:</b> ${data.whyChosen || ''}<br>`;
-                html += `<b>Fee Consent:</b> ${data.feeConsent === 'yes' ? 'Yes, I consent' : 'No, I do not consent'}<br>`;
-                if (data.feeConsent !== 'yes') {
-                    html += `<div style='color:#c00;margin-top:8px;'><b>Note:</b> To participate, you must consent to the fee. If you do not, you may not be eligible for full access to the program features. You can go back and edit your response.</div>`;
-                }
-                reviewContent.innerHTML = html;
-                reviewModal.style.display = 'flex';
+            })
+            .catch(err => {
+                alert('Submission failed, please try again.');
+                console.error(err);
             });
-
-            editBtn.onclick = function () {
-                reviewModal.style.display = 'none';
-            };
-
-            confirmBtn.onclick = function () {
-                if (!reviewData) return;
-                // Store response in localStorage
-                let responses = [];
-                /* Remove .logo styles, use direct img for sharpness */
-                // Hide modal
-                reviewModal.style.display = 'none';
-                // Redirect
-                window.location.href = 'confirmation.html';
-            };
-
-            // Clear temp data on load (so form is always blank)
-            window.addEventListener('DOMContentLoaded', function () {
-                document.getElementById('registrationForm').reset();
-                sessionStorage.removeItem('endCohort2Temp');
-            });
-
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.testimonial, .highlight-card').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-
-            // call this with the finalResponse object (all fields)
-            function finalizeAndSend(finalResponse) {
-    // ensure a timestamp
-    finalResponse.submittedAt = new Date().toISOString();
-
-    fetch('/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(finalResponse)
-    })
-    .then(r => r.json())
-    .then(j => {
-      if (j && j.ok) {
-        // clear any temporary data used during review
-        try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
-        // redirect to confirmation page
-        window.location.href = 'confirmation.html';
-      } else {
-        alert('Submission failed, please try again.');
-        console.error('submit error', j);
-      }
-    })
-    .catch(err => {
-      alert('Submission failed, please try again.');
-      console.error(err);
-    });
-}
-        </script>
+        }
+    </script>
 </body>
 
 </html>
