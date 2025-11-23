@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 const RESP_FILE = path.join(__dirname, 'responses.json');
 
 // simple admin secret (change before deploy)
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'replace-with-strong-secret';
+const ADMIN_SECRET = process.env.ADMIN_SECRET || '0000';
 
 // ensure responses file exists
 if (!fs.existsSync(RESP_FILE)) fs.writeFileSync(RESP_FILE, '[]', 'utf8');
