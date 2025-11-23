@@ -807,32 +807,41 @@
         // Finalize and send data to Google Apps Script
         function finalizeAndSend(finalResponse) {
     finalResponse.submittedAt = new Date().toISOString();
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtkZ9qwlF44Ji8Qn4C3osztkJTpC1UlAND-UrAR_iy8WtPhnp1rK0Q3c9BH_qkbxK9g/exec'; // Update this with your deployment URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtkZ9qwlF44Ji8Qn4C3osztkJTpC1UlAND-UrAR_iy8WtPhnp1rK0Q3c9BH_qkbxK9g/exec'; // Make sure this is correct!
     
+    console.log('Preparing to send:', finalResponse);
+    
+    // Create URLSearchParams for form data
     const formData = new URLSearchParams();
     formData.append('data', JSON.stringify(finalResponse));
 
-    console.log('Sending data...');
+    console.log('Sending to:', SCRIPT_URL);
+    console.log('FormData:', formData.toString());
 
     fetch(SCRIPT_URL, {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text();
+    })
     .then(text => {
-        console.log('Response:', text);
+        console.log('Raw response:', text);
         const j = JSON.parse(text);
+        console.log('Parsed response:', j);
         if (j && j.ok) {
             try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+            alert('Application submitted successfully!');
             window.location.href = 'confirmation.html';
         } else {
             alert('Submission failed: ' + (j.error || 'Unknown error'));
-            console.error('Error:', j);
+            console.error('Error from server:', j);
         }
     })
     .catch(err => {
         console.error('Fetch error:', err);
-        alert('Submission failed: ' + err.message);
+        alert('Network error: ' + err.message);
     });
 }
     </script>
