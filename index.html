@@ -807,7 +807,7 @@
         // Finalize and send data to Google Apps Script
         function finalizeAndSend(finalResponse) {
     finalResponse.submittedAt = new Date().toISOString();
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzrmzdBPIQ2U5Ts0TkLGEEjNYyQtNY3HkaoeCCDBS177Nm5zYDGJiLusDxXsKMidMD3/exec'; // Update this with your deployment URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtkZ9qwlF44Ji8Qn4C3osztkJTpC1UlAND-UrAR_iy8WtPhnp1rK0Q3c9BH_qkbxK9g/exec'; // Update this with your deployment URL
     
     const formData = new URLSearchParams();
     formData.append('data', JSON.stringify(finalResponse));
