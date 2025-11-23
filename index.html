@@ -807,7 +807,7 @@
         // Finalize and send data to Google Apps Script
         function finalizeAndSend(finalResponse) {
             finalResponse.submittedAt = new Date().toISOString();
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytIU0g3EXcGooT5g7SJ1U3IKW9xeGskAkdZ23yMAqa6rPajupxuHXBWjM1D_Jy2V7bgQ/exec'; // Replace with your actual web app URL
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzC63FCN9H_snRaGMrdEp20URyd_6eyWxumKAltU6mW7KrCUqzQOZpcJnGwjFTJolzaUQ/exec'; // Replace with your actual web app URL
             const SECRET = '0000'; // Your secret code
 
             finalResponse._token = SECRET; // Include the token in the payload

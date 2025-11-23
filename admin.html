@@ -36,7 +36,7 @@
     document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const code = document.getElementById('adminPass').value.trim();
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytIU0g3EXcGooT5g7SJ1U3IKW9xeGskAkdZ23yMAqa6rPajupxuHXBWjM1D_Jy2V7bgQ/exec'; // Replace with your Apps Script URL
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzC63FCN9H_snRaGMrdEp20URyd_6eyWxumKAltU6mW7KrCUqzQOZpcJnGwjFTJolzaUQ/exec'; // Replace with your Apps Script URL
 
       const resp = await fetch(SCRIPT_URL + '?admin=' + encodeURIComponent(code));
       const j = await resp.json();
