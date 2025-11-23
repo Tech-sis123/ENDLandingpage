@@ -947,28 +947,31 @@
                 observer.observe(el);
             });
 
+            // call this with the finalResponse object (all fields)
             function finalizeAndSend(finalResponse) {
-    // finalResponse is an object with all form fields + submittedAt is optional
+    // ensure a timestamp
+    finalResponse.submittedAt = new Date().toISOString();
+
     fetch('/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(finalResponse)
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(finalResponse)
     })
     .then(r => r.json())
     .then(j => {
-        if (j && j.ok) {
-            // clear any temporary state, then redirect to confirmation page
-            // remove any local temp keys you used:
-            try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
-            window.location.href = 'confirmation.html';
-        } else {
-            alert('Submission failed, please try again.');
-            console.error('submit error', j);
-        }
+      if (j && j.ok) {
+        // clear any temporary data used during review
+        try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+        // redirect to confirmation page
+        window.location.href = 'confirmation.html';
+      } else {
+        alert('Submission failed, please try again.');
+        console.error('submit error', j);
+      }
     })
     .catch(err => {
-        alert('Submission failed, please try again.');
-        console.error(err);
+      alert('Submission failed, please try again.');
+      console.error(err);
     });
 }
         </script>

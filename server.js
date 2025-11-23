@@ -6,48 +6,50 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const RESP_FILE = path.join(__dirname, 'responses.json');
 
-// simple admin secret (change before deploy)
+// admin secret default -> 0000
 const ADMIN_SECRET = process.env.ADMIN_SECRET || '0000';
 
 // ensure responses file exists
-if (!fs.existsSync(RESP_FILE)) fs.writeFileSync(RESP_FILE, '[]', 'utf8');
+if (!fs.existsSync(RESP_FILE)) {
+  try { fs.writeFileSync(RESP_FILE, '[]', 'utf8'); } catch (e) { console.error('Could not create responses.json', e); }
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// serve static site files (index.html, admin.html, confirmation.html, etc.)
+// serve static site
 app.use(express.static(path.join(__dirname)));
 
+// accept submissions
 app.post('/submit', (req, res) => {
-    try {
-        const payload = req.body || {};
-        // add timestamp
-        payload.submittedAt = new Date().toISOString();
+  try {
+    const payload = req.body || {};
+    payload.submittedAt = payload.submittedAt || new Date().toISOString();
 
-        const raw = fs.readFileSync(RESP_FILE, 'utf8');
-        const arr = JSON.parse(raw || '[]');
-        arr.push(payload);
-        fs.writeFileSync(RESP_FILE, JSON.stringify(arr, null, 2), 'utf8');
+    const raw = fs.readFileSync(RESP_FILE, 'utf8');
+    const arr = JSON.parse(raw || '[]');
+    arr.push(payload);
+    fs.writeFileSync(RESP_FILE, JSON.stringify(arr, null, 2), 'utf8');
 
-        return res.json({ ok: true });
-    } catch (err) {
-        console.error('Save error', err);
-        return res.status(500).json({ ok: false, error: 'save_failed' });
-    }
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Save error', err);
+    return res.status(500).json({ ok: false, error: 'save_failed' });
+  }
 });
 
-// protected endpoint to fetch responses (simple secret via query param)
+// admin reads responses with secret
 app.get('/responses', (req, res) => {
-    const admin = req.query.admin || '';
-    if (admin !== ADMIN_SECRET) return res.status(401).json({ error: 'unauthorized' });
-    try {
-        const raw = fs.readFileSync(RESP_FILE, 'utf8');
-        const arr = JSON.parse(raw || '[]');
-        return res.json({ ok: true, responses: arr });
-    } catch (err) {
-        console.error('Read error', err);
-        return res.status(500).json({ ok: false, error: 'read_failed' });
-    }
+  const admin = req.query.admin || '';
+  if (admin !== ADMIN_SECRET) return res.status(401).json({ ok:false, error: 'unauthorized' });
+  try {
+    const raw = fs.readFileSync(RESP_FILE, 'utf8');
+    const arr = JSON.parse(raw || '[]');
+    return res.json({ ok: true, responses: arr });
+  } catch (err) {
+    console.error('Read error', err);
+    return res.status(500).json({ ok: false, error: 'read_failed' });
+  }
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

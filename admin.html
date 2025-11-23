@@ -1,72 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Every Next Day Responses</title>
-    <style>
-        body {
-            background: radial-gradient(circle at 10% 10%, #07102a 0%, #00102b 20%, #000521 50%, #000216 100%);
-            color: #e6f3ff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .admin-container {
-            max-width: 1200px;
-            margin: 60px auto 0;
-            background: rgba(255,255,255,0.98);
-            border-radius: 16px;
-            padding: 32px 20px 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-            color: #222;
-        }
-        h2 {
-            color: #0047ab;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 15px;
-        }
-        th, td {
-            padding: 8px 6px;
-            border: 1px solid #cce;
-        }
-        th {
-            background: #e6f3ff;
-            color: #0047ab;
-        }
-        .admin-auth {
-            text-align: center;
-            margin: 60px 0 0;
-        }
-        .admin-auth input[type="password"] {
-            padding: 8px 12px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: 1px solid #bbb;
-            margin-right: 8px;
-        }
-        .admin-auth button {
-            padding: 8px 18px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: none;
-            background: #0047ab;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .admin-auth button:hover {
-            background: #1e90ff;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - Every Next Day</title>
+  <style>
+    /* keep your existing admin styles or paste from current file */
+    body{font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;background:#f6f8fb;margin:0;padding:24px}
+    .admin-container{max-width:1100px;margin:24px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #e6eef8;padding:8px;text-align:left}
+    th{background:#f0f7ff;color:#03396c}
+    .admin-auth{text-align:center;margin-top:40px}
+    .admin-auth input{padding:8px 10px;border-radius:6px;border:1px solid #ccc}
+    .admin-auth button{padding:8px 12px;margin-left:8px;border-radius:6px;border:none;background:#0366d6;color:#fff;cursor:pointer}
+  </style>
 </head>
 <body>
-  <div class="admin-container" id="adminPanel" style="display:none;">
+  <div class="admin-container" id="adminPanel" style="display:none">
     <h2>Submitted Applications</h2>
     <div id="responsesTableContent"></div>
   </div>
@@ -74,70 +25,56 @@
   <div class="admin-auth" id="adminAuth">
     <form id="adminLoginForm" autocomplete="off">
       <label for="adminPass">Admin Code:</label>
-      <input type="password" id="adminPass" required autofocus />
+      <input type="password" id="adminPass" required value="0000" />
       <button type="submit">View Responses</button>
     </form>
     <div id="adminAuthMsg" style="color:#c00;margin-top:10px;"></div>
-    <div style="margin-top:30px;">
-      <a href="index.html" style="color:#0047ab;text-decoration:underline;font-weight:600;">Back to Home</a>
-    </div>
+    <div style="margin-top:18px"><a href="index.html">Back to Home</a></div>
   </div>
 
   <script>
-    // no hard-coded server secret here; user types the secret which will be sent to /responses?admin=SECRET
-    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e){
       e.preventDefault();
       const code = document.getElementById('adminPass').value.trim();
-      if (!code) { document.getElementById('adminAuthMsg').textContent = 'Enter admin code.'; return; }
+      if (!code) { document.getElementById('adminAuthMsg').textContent='Enter admin code.'; return; }
       try {
         const resp = await fetch('/responses?admin=' + encodeURIComponent(code));
-        if (resp.status === 401) {
-          document.getElementById('adminAuthMsg').textContent = 'Incorrect code.';
-          return;
-        }
-        if (!resp.ok) {
-          document.getElementById('adminAuthMsg').textContent = 'Server error.';
-          console.error('server error', await resp.text());
-          return;
-        }
+        if (resp.status === 401) { document.getElementById('adminAuthMsg').textContent='Incorrect code.'; return; }
+        if (!resp.ok) { document.getElementById('adminAuthMsg').textContent='Server error.'; console.error(await resp.text()); return; }
         const j = await resp.json();
-        const responses = j.responses || [];
+        const list = j.responses || [];
         document.getElementById('adminPanel').style.display = 'block';
         document.getElementById('adminAuth').style.display = 'none';
-        renderResponses(responses);
+        renderResponses(list);
       } catch (err) {
-        document.getElementById('adminAuthMsg').textContent = 'Unable to reach server.';
+        document.getElementById('adminAuthMsg').textContent='Unable to reach server.';
         console.error(err);
       }
     });
 
-    function renderResponses(list) {
-      const tableContent = document.getElementById('responsesTableContent');
-      if (!list.length) {
-        tableContent.innerHTML = '<p style="text-align:center;color:#888;">No responses yet.</p>'; return;
-      }
-      let html = '<div style="overflow-x:auto"><table><thead><tr>';
+    function renderResponses(list){
+      const container = document.getElementById('responsesTableContent');
+      if (!list.length) { container.innerHTML = '<p style="color:#666">No responses yet.</p>'; return; }
+      let html = '<div style="overflow:auto"><table><thead><tr>';
       html += '<th>Name</th><th>WhatsApp</th><th>Email</th><th>Occupation</th><th>Skills</th><th>Why Join</th><th>Goals</th><th>Fee Consent</th><th>Submitted</th>';
       html += '</tr></thead><tbody>';
       list.slice().reverse().forEach(r => {
         html += '<tr>';
-        html += `<td>${escapeHtml(r.fullName||'')}</td>`;
-        html += `<td>${escapeHtml(r.whatsapp||'')}</td>`;
-        html += `<td>${escapeHtml(r.email||'')}</td>`;
-        html += `<td>${escapeHtml(r.occupation||'')}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.skills||'')}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.whyJoin||'')}</td>`;
-        html += `<td style="white-space:pre-line;">${escapeHtml(r.goals||'')}</td>`;
-        html += `<td>${escapeHtml(r.feeConsent||'')}</td>`;
-        html += `<td>${r.submittedAt?new Date(r.submittedAt).toLocaleString():''}</td>`;
+        html += `<td>${escapeHtml(r.fullName)}</td>`;
+        html += `<td>${escapeHtml(r.whatsapp)}</td>`;
+        html += `<td>${escapeHtml(r.email)}</td>`;
+        html += `<td>${escapeHtml(r.occupation)}</td>`;
+        html += `<td style="white-space:pre-line;">${escapeHtml(r.skills)}</td>`;
+        html += `<td style="white-space:pre-line;">${escapeHtml(r.whyJoin)}</td>`;
+        html += `<td style="white-space:pre-line;">${escapeHtml(r.goals)}</td>`;
+        html += `<td>${escapeHtml(r.feeConsent)}</td>`;
+        html += `<td>${r.submittedAt? new Date(r.submittedAt).toLocaleString(): ''}</td>`;
         html += '</tr>';
       });
       html += '</tbody></table></div>';
-      tableContent.innerHTML = html;
-    }
-
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]) });
+      container.innerHTML = html;
     }
   </script>
 </body>
