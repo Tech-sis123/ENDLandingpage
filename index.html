@@ -807,11 +807,8 @@
         // Finalize and send data to Google Apps Script
         function finalizeAndSend(finalResponse) {
     finalResponse.submittedAt = new Date().toISOString();
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWsiwcJY_RmkBnqAKq7-b-RhY-c0sxCmezr6TRSJDoSMCsWntTdQgtOjZ3c3SyEQSShQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzrmzdBPIQ2U5Ts0TkLGEEjNYyQtNY3HkaoeCCDBS177Nm5zYDGJiLusDxXsKMidMD3/exec'; // Update this with your deployment URL
     
-    // NO TOKEN NEEDED for form submission
-    
-    // Create form data instead of JSON
     const formData = new URLSearchParams();
     formData.append('data', JSON.stringify(finalResponse));
 
