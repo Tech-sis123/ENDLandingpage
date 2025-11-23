@@ -806,34 +806,38 @@
 
         // Finalize and send data to Google Apps Script
         function finalizeAndSend(finalResponse) {
-            finalResponse.submittedAt = new Date().toISOString();
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzC63FCN9H_snRaGMrdEp20URyd_6eyWxumKAltU6mW7KrCUqzQOZpcJnGwjFTJolzaUQ/exec'; // Replace with your actual web app URL
-            const SECRET = '0000'; // Your secret code
+    finalResponse.submittedAt = new Date().toISOString();
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWsiwcJY_RmkBnqAKq7-b-RhY-c0sxCmezr6TRSJDoSMCsWntTdQgtOjZ3c3SyEQSShQ/exec';
+    
+    // NO TOKEN NEEDED for form submission
+    
+    // Create form data instead of JSON
+    const formData = new URLSearchParams();
+    formData.append('data', JSON.stringify(finalResponse));
 
-            finalResponse._token = SECRET; // Include the token in the payload
+    console.log('Sending data...');
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(finalResponse)
-            })
-            .then(r => r.json())
-            .then(j => {
-                if (j && j.ok) {
-                    // Clear any temporary data used during review
-                    try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
-                    // Redirect to confirmation page
-                    window.location.href = 'confirmation.html';
-                } else {
-                    alert('Submission failed, please try again.');
-                    console.error('submit error', j);
-                }
-            })
-            .catch(err => {
-                alert('Submission failed, please try again.');
-                console.error(err);
-            });
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(text => {
+        console.log('Response:', text);
+        const j = JSON.parse(text);
+        if (j && j.ok) {
+            try { sessionStorage.removeItem('end_temp_response'); } catch(e){}
+            window.location.href = 'confirmation.html';
+        } else {
+            alert('Submission failed: ' + (j.error || 'Unknown error'));
+            console.error('Error:', j);
         }
+    })
+    .catch(err => {
+        console.error('Fetch error:', err);
+        alert('Submission failed: ' + err.message);
+    });
+}
     </script>
 </body>
 
